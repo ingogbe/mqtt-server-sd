@@ -7,20 +7,6 @@ var app = express();
 
 app.use(logger('dev'));
 
-consign()
-	.include('models')
-	.then('controllers')
-	.then('routes')
-	.into(app);
-
-module.exports = app;
-
-var port = process.env.PORT || 3000;
-
-app.listen(port, function () {
-    console.log('Servidor rodando em http://localhost:%s', port);
-});
-
 var pubsubsettings = {
 	//using ascoltatore
 	type: 'mongo',		
@@ -39,24 +25,16 @@ var moscaSettings = {
 };
 
 var server = new mosca.Server(moscaSettings);	//here we start mosca
-server.on('ready', setup);	//on init it fires up setup()
 
-// fired when the mqtt server is ready
-function setup() {
+consign()
+	.include('models')
+	.then('controllers')
+	.then('routes')
+	.into(app, server);
+
+module.exports = app;
+
+server.on('ready', function(){
 	console.log('Mosca server is up and running')
-}
+});	//on init it fires up
 
-// fired when a message is published
-server.on('published', function(packet, client) {
-	console.log('Published', packet);
-	//console.log('Client', client);
-});
-// fired when a client connects
-server.on('clientConnected', function(client) {
-	console.log('Client Connected:', client.id);
-});
-
-// fired when a client disconnects
-server.on('clientDisconnected', function(client) {
-	console.log('Client Disconnected:', client.id);
-});
