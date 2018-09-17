@@ -10,8 +10,10 @@
   "author": "Ingo Guilherme Both Eyng",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "consign": "^0.1.6",
     "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
     "morgan": "^1.9.0",
     "mosca": "^2.8.3"
   },
