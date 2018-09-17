@@ -11,7 +11,7 @@ var pubsubsettings = {
 	//using ascoltatore
 	type: 'mongo',		
 	url: 'mongodb://localhost:27017/mqtt',
-	pubsubCollection: 'test',
+	pubsubCollection: 'messages',
 	mongo: {}
 };
 
